@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
     name: "SwiftyDraw",
     platforms: [
-        .iOS(.v9)
+        .iOS(.v14)
     ],
     products: [
         .library(name: "SwiftyDraw", targets: ["SwiftyDraw"])

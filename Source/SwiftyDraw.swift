@@ -417,11 +417,9 @@ extension SwiftyDrawView.DrawItem: Codable {
         
         let uiBezierPath = UIBezierPath(cgPath: path)
         var pathData: Data?
-        if #available(iOS 11.0, *) {
-            pathData = try NSKeyedArchiver.archivedData(withRootObject: uiBezierPath, requiringSecureCoding: false)
-        } else {
-            pathData = NSKeyedArchiver.archivedData(withRootObject: uiBezierPath)
-        }
+        
+        pathData = try NSKeyedArchiver.archivedData(withRootObject: uiBezierPath, requiringSecureCoding: false)
+        
         try container.encode(pathData!, forKey: .path)
         
         try container.encode(brush, forKey: .brush)
