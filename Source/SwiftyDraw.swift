@@ -102,7 +102,6 @@ open class SwiftyDrawView: UIView {
         }
     }
     /// Determines which touch types are allowed to draw; default: `[.finger, .pencil]` (all)
-    @available(iOS 9.1, *)
     public lazy var allowedTouchTypes: [TouchType] = [.finger, .pencil]
     
     public  var drawItems: [DrawItem] = []
@@ -113,7 +112,6 @@ open class SwiftyDrawView: UIView {
     private var previousPreviousPoint: CGPoint = .zero
     
     // For pencil interactions
-    @available(iOS 12.1, *)
     lazy private var pencilInteraction = UIPencilInteraction()
     
     /// Save the previous brush for Apple Pencil interaction Switch to previous tool
@@ -385,7 +383,6 @@ extension Collection {
     }
 }
 
-@available(iOS 12.1, *)
 extension SwiftyDrawView : UIPencilInteractionDelegate{
     public func pencilInteractionDidTap(_ interaction: UIPencilInteraction) {
         let preference = UIPencilInteraction.preferredTapAction
@@ -407,7 +404,8 @@ extension SwiftyDrawView.DrawItem: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         let pathData = try container.decode(Data.self, forKey: .path)
-        let uiBezierPath = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(pathData) as! UIBezierPath
+        let uiBezierPath = try NSKeyedUnarchiver.unarchivedObject(ofClass: UIBezierPath.self, from: pathData)!
+        
         path = uiBezierPath.cgPath as! CGMutablePath
     
         brush = try container.decode(Brush.self, forKey: .brush)
