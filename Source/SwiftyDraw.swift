@@ -90,14 +90,16 @@ open class SwiftyDrawView: UIView {
     
     @available(iOS 9.1, *)
     public enum TouchType: Equatable, CaseIterable {
-        case finger, pencil
+        case finger, pencil, mac
         
         var uiTouchTypes: [UITouch.TouchType] {
             switch self {
             case .finger:
                 return [.direct, .indirect]
             case .pencil:
-                return [.pencil, .stylus  ]
+                return [.pencil, .stylus]
+            case .mac:
+                return [.indirectPointer]
             }
         }
     }
